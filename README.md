@@ -22,7 +22,7 @@ I enjoy building practical software solutions that combine AI capabilities with 
 | Project | Description | Technologies | Link |
 |---|---|---|---|
 | AI Code Assistant Chatbot | AI-powered chatbot that explains uploaded code, detects syntax and logical errors, and provides fixes using Groq LLM API. | Python, Streamlit, Groq API, Prompt Engineering | [View Project](./ai-code-assistant-chatbot) |
-| Planet Donuts Website | Full-stack donut shop web application with menu system, order management, admin dashboard, and REST APIs. | Flask, SQLite, HTML, CSS, JavaScript | [View Project](./planet-donuts) |
+| astro Donuts Website | Full-stack donut shop web application with menu system, order management, admin dashboard, and REST APIs. | Flask, SQLite, HTML, CSS, JavaScript | [View Project](./astro-donuts) |
 | CPU Scheduling Simulator | Operating systems simulator implementing scheduling algorithms with performance metrics and API-based simulation. | Python, Flask, Algorithms, REST APIs | [View Project](./cpu-scheduling-simulator) |
 
 ---
