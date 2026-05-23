@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPU Scheduling Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero glass-card">
+      <div>
+        <p class="eyebrow">Operating Systems Project</p>
+        <h1>CPU Scheduling Simulator</h1>
+        <p class="hero-text">Visualize FCFS, SJF, SRTF, Priority Scheduling, and Round Robin with metrics, comparison mode, and a responsive dashboard UI.</p>
+      </div>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <main class="dashboard-grid">
+      <section class="panel input-panel glass-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Input</p>
+            <h2>Processes</h2>
+          </div>
+          <button id="addProcess" class="btn secondary" type="button">+ Add Process</button>
+        </div>
+
+        <div class="table-wrap input-table-wrap">
+          <table class="process-input-table">
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>Arrival</th>
+                <th>Burst</th>
+                <th>Priority</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="processRows"></tbody>
+          </table>
+        </div>
+
+        <div class="controls-grid">
+          <label>
+            Algorithm
+            <select id="algorithm">
+              <option value="fcfs">FCFS</option>
+              <option value="sjf">SJF Non-Preemptive</option>
+              <option value="srtf">SRTF Preemptive</option>
+              <option value="priority">Priority Scheduling</option>
+              <option value="rr">Round Robin</option>
+            </select>
+          </label>
+          <label id="quantumGroup">
+            Time Quantum
+            <input id="quantum" type="number" min="1" value="2" />
+          </label>
+        </div>
+
+        <div id="errorBox" class="error-box" role="alert"></div>
+
+        <div class="action-row">
+          <button id="simulateBtn" class="btn primary" type="button">Simulate</button>
+          <button id="compareBtn" class="btn accent" type="button">Compare All</button>
+          <button id="randomBtn" class="btn secondary" type="button">Random</button>
+          <button id="clearBtn" class="btn ghost" type="button">Clear</button>
+        </div>
+      </section>
+
+      <section class="panel results-panel glass-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Output</p>
+            <h2 id="resultTitle">Simulation Results</h2>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="metric-card">
+            <span>Avg Waiting</span>
+            <strong id="avgWaiting">--</strong>
+          </article>
+          <article class="metric-card">
+            <span>Avg Turnaround</span>
+            <strong id="avgTurnaround">--</strong>
+          </article>
+          <article class="metric-card">
+            <span>Avg Response</span>
+            <strong id="avgResponse">--</strong>
+          </article>
+          <article class="metric-card">
+            <span>CPU Utilization</span>
+            <strong id="cpuUtil">--</strong>
+          </article>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Gantt Chart</h3>
+            <p>Colored blocks show CPU execution over time.</p>
+          </div>
+          <div id="ganttChart" class="gantt-chart empty-state">Run a simulation to see the timeline.</div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>Arrival</th>
+                <th>Burst</th>
+                <th>Priority</th>
+                <th>Completion</th>
+                <th>Turnaround</th>
+                <th>Waiting</th>
+                <th>Response</th>
+              </tr>
+            </thead>
+            <tbody id="metricsRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <section id="compareSection" class="panel compare-panel glass-card hidden">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Benchmark</p>
+          <h2>Algorithm Comparison</h2>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Avg Waiting</th>
+              <th>Avg Turnaround</th>
+              <th>Avg Response</th>
+              <th>CPU Utilization</th>
+            </tr>
+          </thead>
+          <tbody id="compareRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
