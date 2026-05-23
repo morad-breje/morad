@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Menu — Astro Donuts</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍩</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/main.css">
+<link rel="stylesheet" href="/static/css/menu.css">
+</head>
+<body class="page-menu">
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="navbar" class="nav-solid">
+  <a href="/" class="nav-logo">🍩 Astro Donuts</a>
+  <ul class="nav-links">
+    <li><a href="/menu" class="active">Menu</a></li>
+    <li><a href="/#about">Story</a></li>
+    <li><a href="/#location">Find Us</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" id="cartBtn" onclick="openCart()">
+      <span class="cart-icon">🛒</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <a href="/order" class="nav-order">Checkout</a>
+  </div>
+</nav>
+
+<!-- MENU HERO -->
+<div class="menu-hero">
+  <div class="menu-hero-bg">
+    <div class="donut-ring r1"></div>
+    <div class="donut-ring r2"></div>
+  </div>
+  <div class="menu-hero-content">
+    <div class="menu-eyebrow">40+ Flavours · Made Fresh Daily</div>
+    <h1 class="menu-title">Our <em>Menu</em></h1>
+    <p class="menu-sub">Every donut hand-glazed. Every bite unforgettable.</p>
+  </div>
+</div>
+
+<!-- TICKER small -->
+<div class="ticker ticker-sm">
+  <div class="ticker-inner">
+    <span class="ticker-item">Glazed Classic <span class="tdot">●</span></span>
+    <span class="ticker-item">Rose Water <span class="tdot">●</span></span>
+    <span class="ticker-item">Pistachio <span class="tdot">●</span></span>
+    <span class="ticker-item">Lotus Butter <span class="tdot">●</span></span>
+    <span class="ticker-item">Mango Tango <span class="tdot">●</span></span>
+    <span class="ticker-item">Caramel Crunch <span class="tdot">●</span></span>
+    <span class="ticker-item">Nutella Volcano <span class="tdot">●</span></span>
+    <span class="ticker-item">Blue Velvet <span class="tdot">●</span></span>
+    <span class="ticker-item">Glazed Classic <span class="tdot">●</span></span>
+    <span class="ticker-item">Rose Water <span class="tdot">●</span></span>
+    <span class="ticker-item">Pistachio <span class="tdot">●</span></span>
+    <span class="ticker-item">Lotus Butter <span class="tdot">●</span></span>
+    <span class="ticker-item">Mango Tango <span class="tdot">●</span></span>
+    <span class="ticker-item">Caramel Crunch <span class="tdot">●</span></span>
+    <span class="ticker-item">Nutella Volcano <span class="tdot">●</span></span>
+    <span class="ticker-item">Blue Velvet <span class="tdot">●</span></span>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-cat="all">All Donuts</button>
+  <button class="filter-btn" data-cat="classic">Classic</button>
+  <button class="filter-btn" data-cat="signature">Signature</button>
+  <button class="filter-btn" data-cat="fun">Fun & Colourful</button>
+  <button class="filter-btn" data-cat="seasonal">Seasonal</button>
+</div>
+
+<!-- SEARCH -->
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="🔍  Search flavours..." class="search-input">
+</div>
+
+<!-- MENU GRID -->
+<div class="menu-container">
+  <div class="menu-grid" id="menuGrid">
+    <!-- filled via JS -->
+    <div class="donut-skeleton"></div>
+    <div class="donut-skeleton"></div>
+    <div class="donut-skeleton"></div>
+    <div class="donut-skeleton"></div>
+    <div class="donut-skeleton"></div>
+    <div class="donut-skeleton"></div>
+  </div>
+  <div class="no-results hidden" id="noResults">
+    <div class="no-results-emoji">🍩</div>
+    <h3>No donuts found</h3>
+    <p>Try a different search or category</p>
+  </div>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2 class="cart-title">Your Cart 🛒</h2>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <div class="cart-empty-emoji">🍩</div>
+      <p>Your cart is empty</p>
+      <p class="cart-empty-sub">Add some donuts above!</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">0 JD</span>
+    </div>
+    <a href="/order" class="btn-primary w-full">Proceed to Order →</a>
+  </div>
+</aside>
+
+<!-- DONUT DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="donut-modal" id="donutModal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img-wrap">
+      <img id="modalImg" src="" alt="donut">
+    </div>
+    <div class="modal-body">
+      <div class="modal-badge" id="modalBadge"></div>
+      <h2 class="modal-name" id="modalName"></h2>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-price" id="modalPrice"></div>
+      <div class="modal-qty">
+        <button class="qty-btn" onclick="changeModalQty(-1)">−</button>
+        <span class="qty-val" id="modalQty">1</span>
+        <button class="qty-btn" onclick="changeModalQty(1)">+</button>
+      </div>
+      <button class="btn-primary w-full" id="modalAddBtn" onclick="addModalToCart()">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/cart.js"></script>
+<script src="/static/js/menu.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>

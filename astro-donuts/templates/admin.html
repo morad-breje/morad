@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — Astro Donuts</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍩</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/main.css">
+<link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body class="page-admin">
+
+<div class="admin-layout">
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div class="admin-logo">🍩<br><span>Astro<br>Donuts</span></div>
+    <nav class="admin-nav">
+      <a href="#" class="admin-nav-item active" onclick="showTab('orders')">📋 Orders</a>
+      <a href="#" class="admin-nav-item" onclick="showTab('menu')">🍩 Menu</a>
+      <a href="#" class="admin-nav-item" onclick="showTab('stats')">📊 Stats</a>
+    </nav>
+    <div class="admin-sidebar-bottom">
+      <a href="/" class="admin-nav-item">← Live Site</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="admin-main">
+    <!-- HEADER -->
+    <div class="admin-header">
+      <div>
+        <h1 class="admin-title" id="adminPageTitle">Orders</h1>
+        <p class="admin-subtitle" id="adminPageSub">Manage incoming orders</p>
+      </div>
+      <div class="admin-header-right">
+        <button class="admin-refresh-btn" onclick="refreshCurrent()">↻ Refresh</button>
+        <div class="admin-live-badge">🟢 Live</div>
+      </div>
+    </div>
+
+    <!-- STATS CARDS (always visible) -->
+    <div class="stats-strip" id="statsStrip">
+      <div class="stat-card"><div class="sc-val" id="scTotal">—</div><div class="sc-lbl">Total Orders</div></div>
+      <div class="stat-card"><div class="sc-val" id="scToday">—</div><div class="sc-lbl">Today</div></div>
+      <div class="stat-card"><div class="sc-val" id="scPending">—</div><div class="sc-lbl">Pending</div></div>
+      <div class="stat-card"><div class="sc-val" id="scRevenue">—</div><div class="sc-lbl">Revenue (JD)</div></div>
+    </div>
+
+    <!-- ORDERS TAB -->
+    <div id="tab-orders" class="admin-tab active">
+      <div class="tab-toolbar">
+        <div class="filter-pills">
+          <button class="pill active" onclick="filterOrders('all',this)">All</button>
+          <button class="pill" onclick="filterOrders('pending',this)">Pending</button>
+          <button class="pill" onclick="filterOrders('confirmed',this)">Confirmed</button>
+          <button class="pill" onclick="filterOrders('preparing',this)">Preparing</button>
+          <button class="pill" onclick="filterOrders('ready',this)">Ready</button>
+          <button class="pill" onclick="filterOrders('delivered',this)">Delivered</button>
+          <button class="pill" onclick="filterOrders('cancelled',this)">Cancelled</button>
+        </div>
+      </div>
+      <div class="orders-list" id="ordersList">
+        <div class="loading-state">Loading orders…</div>
+      </div>
+    </div>
+
+    <!-- MENU TAB -->
+    <div id="tab-menu" class="admin-tab">
+      <div class="admin-menu-grid" id="adminMenuGrid">
+        <div class="loading-state">Loading menu…</div>
+      </div>
+    </div>
+
+    <!-- STATS TAB -->
+    <div id="tab-stats" class="admin-tab">
+      <div class="stats-detail" id="statsDetail">
+        <div class="loading-state">Loading stats…</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="modal-overlay" id="orderModalOverlay" onclick="closeOrderModal()" style="display:none">
+  <div class="order-detail-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeOrderModal()">✕</button>
+    <h2 class="odm-title">Order <span id="odmId"></span></h2>
+    <div class="odm-meta">
+      <div><span class="odm-label">Customer</span><span id="odmName"></span></div>
+      <div><span class="odm-label">Phone</span><span id="odmPhone"></span></div>
+      <div><span class="odm-label">Type</span><span id="odmType"></span></div>
+      <div><span class="odm-label">Address</span><span id="odmAddress"></span></div>
+      <div><span class="odm-label">Time</span><span id="odmTime"></span></div>
+      <div><span class="odm-label">Note</span><span id="odmNote"></span></div>
+    </div>
+    <div class="odm-items" id="odmItems"></div>
+    <div class="odm-total">Total: <strong id="odmTotal"></strong></div>
+    <div class="odm-status-section">
+      <div class="odm-label">Update Status</div>
+      <div class="status-btns">
+        <button onclick="updateStatus('pending')">⏳ Pending</button>
+        <button onclick="updateStatus('confirmed')">✅ Confirmed</button>
+        <button onclick="updateStatus('preparing')">👨‍🍳 Preparing</button>
+        <button onclick="updateStatus('ready')">📦 Ready</button>
+        <button onclick="updateStatus('delivered')">🎉 Delivered</button>
+        <button onclick="updateStatus('cancelled')" class="danger">✕ Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/admin.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>
