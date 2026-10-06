@@ -6,6 +6,7 @@ export default function Portfolio() {
         "An AI-powered chatbot that explains uploaded code files, detects syntax and logical errors, and provides corrected solutions using Groq LLM API integration.",
       tech: ["Python", "Streamlit", "Groq API", "Prompt Engineering"],
       github: "https://github.com/morad-breje/morad/tree/main/ai-code-assistant-chatbot",
+      demo: "https://ai-code-assistant-chatbot.onrender.com",
     },
     {
       title: "Planet Donuts Website",
@@ -13,6 +14,7 @@ export default function Portfolio() {
         "A fully functional donut shop web application featuring order management, admin dashboard, REST APIs, menu system, and responsive frontend pages.",
       tech: ["Flask", "SQLite", "HTML", "CSS", "JavaScript"],
       github: "https://github.com/morad-breje/morad/tree/main/astro-donuts",
+      demo: "https://astro-donuts.onrender.com",
     },
     {
       title: "CPU Scheduling Simulator",
@@ -20,6 +22,7 @@ export default function Portfolio() {
         "A scheduling simulator implementing FCFS, Round Robin, and Priority Scheduling algorithms with performance metrics and API-based simulation.",
       tech: ["Python", "Flask", "Algorithms", "REST APIs"],
       github: "https://github.com/morad-breje/morad/tree/main/cpu-scheduling-simulator",
+      demo: "https://cpu-scheduling-simulator-0x8i.onrender.com",
     },
   ];
 
@@ -148,14 +151,24 @@ export default function Portfolio() {
                   ))}
                 </div>
 
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-400 transition font-semibold"
-                >
-                  View Project
-                </a>
+                <div className="flex gap-3 flex-wrap">
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-400 transition font-semibold"
+                  >
+                    Live Demo
+                  </a>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-6 py-3 rounded-xl border border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white transition font-semibold"
+                  >
+                    View Code
+                  </a>
+                </div>
               </div>
             </div>
           ))}
