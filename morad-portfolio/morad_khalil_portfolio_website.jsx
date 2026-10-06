@@ -24,6 +24,22 @@ export default function Portfolio() {
       github: "https://github.com/morad-breje/morad/tree/main/cpu-scheduling-simulator",
       demo: "https://cpu-scheduling-simulator-0x8i.onrender.com",
     },
+    {
+      title: "Root & Leaf Plant Shop",
+      description:
+        "An indoor plant boutique web app with a dark-theme UI, plant catalog, cart and checkout, and a password-protected admin dashboard for managing plants.",
+      tech: ["Flask", "SQLite", "HTML", "CSS", "JavaScript"],
+      github: "https://github.com/morad-breje/morad/tree/main/root-leaf",
+      demo: "https://root-leaf.onrender.com",
+    },
+    {
+      title: "Malazem Study Material Exchange",
+      description:
+        "A Flutter app where IT students sign up, share and browse study materials, and upload their own files, backed by Supabase authentication and database.",
+      tech: ["Flutter", "Dart", "Supabase"],
+      github: "https://github.com/morad-breje/morad/tree/main/malazem5",
+      demo: "https://morad-breje.github.io/morad/malazem-web/",
+    },
   ];
 
   const skills = [
@@ -36,6 +52,8 @@ export default function Portfolio() {
     "Machine Learning",
     "SQL",
     "GitHub",
+    "Flutter",
+    "Supabase",
     "Docker",
     "HTML/CSS",
     "JavaScript",
