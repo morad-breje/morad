@@ -1,0 +1,52 @@
+services:
+  - type: web
+    name: astro-donuts
+    runtime: python
+    plan: free
+    region: frankfurt
+    rootDir: astro-donuts
+    buildCommand: pip install -r requirements.txt && python -c "import app; app.init_db()"
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
+  - type: web
+    name: root-leaf
+    runtime: python
+    plan: free
+    region: frankfurt
+    rootDir: root-leaf
+    buildCommand: pip install -r requirements.txt && python -c "import app; app.init_db()"
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false
+
+  - type: web
+    name: cpu-scheduling-simulator
+    runtime: python
+    plan: free
+    region: frankfurt
+    rootDir: cpu-scheduling-simulator
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
+  - type: web
+    name: ai-code-assistant-chatbot
+    runtime: python
+    plan: free
+    region: frankfurt
+    rootDir: ai-code-assistant-chatbot
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
