@@ -12,7 +12,7 @@ export default function Portfolio() {
       description:
         "A fully functional donut shop web application featuring order management, admin dashboard, REST APIs, menu system, and responsive frontend pages.",
       tech: ["Flask", "SQLite", "HTML", "CSS", "JavaScript"],
-      github: "https://github.com/morad-breje/morad/tree/main/planet-donuts",
+      github: "https://github.com/morad-breje/morad/tree/main/astro-donuts",
     },
     {
       title: "CPU Scheduling Simulator",
