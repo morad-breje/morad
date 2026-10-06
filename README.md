@@ -32,6 +32,25 @@ I enjoy building practical software solutions that combine AI capabilities with 
 
 > The Render demos run on the free plan, so the first visit after a period of inactivity can take up to a minute to wake up.
 
+## Screenshots
+
+Click any screenshot to open the live app.
+
+<table>
+<tr>
+<td width="50%" align="center"><a href="https://ai-code-assistant-chatbot.onrender.com"><img src="screenshots/ai-code-assistant-chatbot.png" alt="AI Code Assistant Chatbot"></a><br><b><a href="https://ai-code-assistant-chatbot.onrender.com">AI Code Assistant Chatbot</a></b></td>
+<td width="50%" align="center"><a href="https://astro-donuts.onrender.com"><img src="screenshots/astro-donuts.png" alt="Astro Donuts Website"></a><br><b><a href="https://astro-donuts.onrender.com">Astro Donuts Website</a></b></td>
+</tr>
+<tr>
+<td width="50%" align="center"><a href="https://cpu-scheduling-simulator-0x8i.onrender.com"><img src="screenshots/cpu-scheduling-simulator.png" alt="CPU Scheduling Simulator"></a><br><b><a href="https://cpu-scheduling-simulator-0x8i.onrender.com">CPU Scheduling Simulator</a></b></td>
+<td width="50%" align="center"><a href="https://root-leaf.onrender.com"><img src="screenshots/root-leaf.png" alt="Root &amp; Leaf Plant Shop"></a><br><b><a href="https://root-leaf.onrender.com">Root &amp; Leaf Plant Shop</a></b></td>
+</tr>
+<tr>
+<td width="50%" align="center"><a href="https://morad-breje.github.io/morad/malazem-web/"><img src="screenshots/malazem.png" alt="Malazem Study Material Exchange"></a><br><b><a href="https://morad-breje.github.io/morad/malazem-web/">Malazem Study Material Exchange</a></b></td>
+<td width="50%" align="center"><a href="https://morad-breje.github.io/morad/morad-portfolio/"><img src="screenshots/portfolio.png" alt="Portfolio Website"></a><br><b><a href="https://morad-breje.github.io/morad/morad-portfolio/">Portfolio Website</a></b></td>
+</tr>
+</table>
+
 ---|---|---|---|
 | AI Code Assistant Chatbot | AI-powered chatbot that explains uploaded code, detects syntax and logical errors, and provides fixes using Groq LLM API. | Python, Streamlit, Groq API, Prompt Engineering | [View Project](./ai-code-assistant-chatbot) |
 | Astro Donuts Website | Full-stack donut shop web application with menu system, order management, admin dashboard, and REST APIs. | Flask, SQLite, HTML, CSS, JavaScript | [View Project](./astro-donuts) |
