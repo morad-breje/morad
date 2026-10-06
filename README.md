@@ -19,8 +19,20 @@ I enjoy building practical software solutions that combine AI capabilities with 
 
 # Projects
 
-| Project | Description | Technologies | Link |
-|---|---|---|---|
+🌐 **Live portfolio:** https://morad-breje.github.io/morad/morad-portfolio/
+
+| Project | Description | Technologies | Live Demo | Code |
+|---|---|---|---|---|
+| AI Code Assistant Chatbot | AI-powered chatbot that explains uploaded code, detects syntax and logical errors, and provides fixes using Groq LLM API. | Python, Streamlit, Groq API, Prompt Engineering | [Live Demo](https://ai-code-assistant-chatbot.onrender.com) | [View Code](./ai-code-assistant-chatbot) |
+| Astro Donuts Website | Full-stack donut shop web application with menu system, order management, admin dashboard, and REST APIs. | Flask, SQLite, HTML, CSS, JavaScript | [Live Demo](https://astro-donuts.onrender.com) | [View Code](./astro-donuts) |
+| CPU Scheduling Simulator | Operating systems simulator implementing scheduling algorithms with performance metrics and API-based simulation. | Python, Flask, Algorithms, REST APIs | [Live Demo](https://cpu-scheduling-simulator-0x8i.onrender.com) | [View Code](./cpu-scheduling-simulator) |
+| Root & Leaf Plant Shop | Indoor plant boutique web app with plant catalog, cart and checkout, and a password-protected admin dashboard. | Flask, SQLite, HTML, CSS, JavaScript | [Live Demo](https://root-leaf.onrender.com) | [View Code](./root-leaf) |
+| Malazem Study Material Exchange | Flutter app where IT students sign up, share and browse study materials, backed by Supabase. | Flutter, Dart, Supabase | [Live Demo](https://morad-breje.github.io/morad/malazem-web/) | [View Code](./malazem5) |
+| Portfolio Website | Personal portfolio site showcasing these projects. | HTML, CSS, React | [Live Site](https://morad-breje.github.io/morad/morad-portfolio/) | [View Code](./morad-portfolio) |
+
+> The Render demos run on the free plan, so the first visit after a period of inactivity can take up to a minute to wake up.
+
+---|---|---|---|
 | AI Code Assistant Chatbot | AI-powered chatbot that explains uploaded code, detects syntax and logical errors, and provides fixes using Groq LLM API. | Python, Streamlit, Groq API, Prompt Engineering | [View Project](./ai-code-assistant-chatbot) |
 | Astro Donuts Website | Full-stack donut shop web application with menu system, order management, admin dashboard, and REST APIs. | Flask, SQLite, HTML, CSS, JavaScript | [View Project](./astro-donuts) |
 | CPU Scheduling Simulator | Operating systems simulator implementing scheduling algorithms with performance metrics and API-based simulation. | Python, Flask, Algorithms, REST APIs | [View Project](./cpu-scheduling-simulator) |
@@ -39,6 +51,8 @@ I enjoy building practical software solutions that combine AI capabilities with 
 ## Frameworks & Tools
 - Flask
 - Streamlit
+- Flutter
+- Supabase
 - Git & GitHub
 - SQLite
 - Docker
