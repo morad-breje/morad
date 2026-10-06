@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Root & Leaf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/main.css" />
+  <link rel="stylesheet" href="/static/css/admin.css" />
+</head>
+<body class="admin-body">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ADMIN SIDEBAR
+═══════════════════════════════════════════════════════════════════════ -->
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="admin-sidebar__logo">
+    <svg viewBox="0 0 24 32" fill="none" width="24" height="32">
+      <path d="M12 30C12 30 2 22 2 12C2 4 7 1 12 1C17 1 22 4 22 12C22 22 12 30 12 30Z" fill="#4A7C59"/>
+      <path d="M12 30 L12 6" stroke="#101814" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="admin-sidebar__brand">ROOT &amp; LEAF</div>
+      <div class="admin-sidebar__sub">Management Console</div>
+    </div>
+  </div>
+
+  <nav class="admin-nav">
+    <a class="admin-nav__item admin-nav__item--active" data-tab="dashboard" href="#dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a class="admin-nav__item" data-tab="orders" href="#orders">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17H5a2 2 0 00-2 2v2h14v-2a2 2 0 00-2-2h-4z"/><path d="M12 12a5 5 0 100-10 5 5 0 000 10z"/></svg>
+      Orders
+      <span class="admin-nav__badge" id="navOrderBadge">0</span>
+    </a>
+    <a class="admin-nav__item" data-tab="inventory" href="#inventory">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      Inventory
+    </a>
+    <a class="admin-nav__item" data-tab="statistics" href="#statistics">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Statistics
+    </a>
+  </nav>
+
+  <div class="admin-sidebar__footer">
+    <a href="/" class="admin-sidebar__back" style="margin-bottom:.5rem">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Site
+    </a>
+    <a href="/admin/logout" class="admin-sidebar__back" style="color:rgba(240,128,128,.7)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      Sign Out
+    </a>
+  </div>
+</aside>
+
+<!-- Sidebar toggle (mobile) -->
+<button class="admin-menu-btn" id="adminMenuBtn" aria-label="Toggle sidebar">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+</button>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ADMIN MAIN
+═══════════════════════════════════════════════════════════════════════ -->
+<main class="admin-main">
+
+  <!-- ─── Top Bar ──────────────────────────────────────── -->
+  <header class="admin-topbar">
+    <div>
+      <h1 class="admin-topbar__title" id="adminPageTitle">Dashboard</h1>
+      <p class="admin-topbar__date" id="adminDate"></p>
+    </div>
+    <div class="admin-topbar__actions">
+      <button class="admin-refresh-btn" id="refreshBtn" title="Refresh data">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════
+       TAB: DASHBOARD
+  ═══════════════════════════════════════════════════ -->
+  <section class="admin-tab admin-tab--active" id="tab-dashboard">
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card stat-card--green">
+        <div class="stat-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17H5a2 2 0 00-2 2v2h14v-2a2 2 0 00-2-2h-4z"/><circle cx="12" cy="7" r="5"/></svg>
+        </div>
+        <div class="stat-card__data">
+          <div class="stat-card__value" id="statTotalOrders">–</div>
+          <div class="stat-card__label">Total Orders</div>
+        </div>
+      </div>
+      <div class="stat-card stat-card--gold">
+        <div class="stat-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="stat-card__data">
+          <div class="stat-card__value" id="statRevenue">–</div>
+          <div class="stat-card__label">Total Revenue</div>
+        </div>
+      </div>
+      <div class="stat-card stat-card--blue">
+        <div class="stat-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="stat-card__data">
+          <div class="stat-card__value" id="statInventory">–</div>
+          <div class="stat-card__label">Plants Listed</div>
+        </div>
+      </div>
+      <div class="stat-card stat-card--red">
+        <div class="stat-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="stat-card__data">
+          <div class="stat-card__value" id="statLowStock">–</div>
+          <div class="stat-card__label">Low Stock</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="admin-panel">
+      <div class="admin-panel__header">
+        <h2>Recent Orders</h2>
+        <button class="btn btn--outline btn--sm" data-tab="orders">View All</button>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="recentOrdersBody">
+            <tr><td colspan="5" class="table-loading">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Order Status Summary -->
+    <div class="admin-panel">
+      <div class="admin-panel__header">
+        <h2>Order Status Breakdown</h2>
+      </div>
+      <div class="status-breakdown" id="statusBreakdown">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       TAB: ORDERS
+  ═══════════════════════════════════════════════════ -->
+  <section class="admin-tab" id="tab-orders">
+    <div class="admin-panel">
+      <div class="admin-panel__header">
+        <h2>All Orders</h2>
+        <div class="admin-panel__filters">
+          <select id="orderStatusFilter" class="admin-select">
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="preparing">Preparing</option>
+            <option value="ready">Ready</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <input type="text" id="orderSearch" class="admin-input" placeholder="Search by customer…" />
+        </div>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table admin-table--orders">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Delivery</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody">
+            <tr><td colspan="9" class="table-loading">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       TAB: INVENTORY
+  ═══════════════════════════════════════════════════ -->
+  <section class="admin-tab" id="tab-inventory">
+    <div class="admin-panel">
+      <div class="admin-panel__header">
+        <h2>Plant Inventory</h2>
+        <div class="admin-panel__filters">
+          <input type="text" id="inventorySearch" class="admin-input" placeholder="Search plants…" />
+          <select id="inventoryCategoryFilter" class="admin-select">
+            <option value="">All Categories</option>
+            <option>Tropical</option>
+            <option>Succulents</option>
+            <option>Trailing</option>
+            <option>Flowering</option>
+            <option>Trees</option>
+            <option>Ferns</option>
+            <option>Palms</option>
+          </select>
+        </div>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Plant</th>
+              <th>Category</th>
+              <th>Difficulty</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryTableBody">
+            <tr><td colspan="7" class="table-loading">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       TAB: STATISTICS
+  ═══════════════════════════════════════════════════ -->
+  <section class="admin-tab" id="tab-statistics">
+    <div class="stats-charts-grid">
+      <div class="admin-panel admin-panel--chart">
+        <div class="admin-panel__header"><h2>Orders by Status</h2></div>
+        <div class="chart-container" id="statusChartContainer">
+          <!-- animated bar chart, rendered by JS -->
+        </div>
+      </div>
+      <div class="admin-panel admin-panel--chart">
+        <div class="admin-panel__header"><h2>Revenue Highlights</h2></div>
+        <div class="revenue-highlights" id="revenueHighlights">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </div>
+    <div class="admin-panel">
+      <div class="admin-panel__header"><h2>Inventory Health</h2></div>
+      <div class="inventory-health" id="inventoryHealth">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ORDER DETAIL MODAL
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="orderModalOverlay"></div>
+<div class="admin-modal" id="orderModal">
+  <div class="admin-modal__header">
+    <h2 id="orderModalTitle">Order Details</h2>
+    <button class="modal__close" id="orderModalClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="admin-modal__body" id="orderModalBody">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- Edit Plant Modal -->
+<div class="modal-overlay" id="editPlantOverlay"></div>
+<div class="admin-modal" id="editPlantModal">
+  <div class="admin-modal__header">
+    <h2>Edit Plant</h2>
+    <button class="modal__close" id="editPlantClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="admin-modal__body">
+    <input type="hidden" id="editPlantId" />
+    <div class="form-field">
+      <label>Photo</label>
+      <div class="edit-plant-photo">
+        <img id="editPlantImagePreview" src="" alt="Plant photo preview" class="edit-plant-photo__preview" />
+        <div class="edit-plant-photo__actions">
+          <label for="editPlantImageFile" class="admin-btn admin-btn--primary edit-plant-photo__upload-btn">
+            Upload New Photo
+          </label>
+          <input type="file" id="editPlantImageFile" accept=".png,.jpg,.jpeg,.webp,.gif" hidden />
+          <span class="edit-plant-photo__hint">JPG, PNG, WEBP or GIF</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Plant Name</label>
+      <input type="text" id="editPlantName" class="admin-input admin-input--full" />
+    </div>
+    <div class="form-row form-row--2">
+      <div class="form-field">
+        <label>Price (£)</label>
+        <input type="number" id="editPlantPrice" class="admin-input admin-input--full" step="0.01" min="0" />
+      </div>
+      <div class="form-field">
+        <label>Stock</label>
+        <input type="number" id="editPlantStock" class="admin-input admin-input--full" min="0" />
+      </div>
+    </div>
+    <div class="form-row form-row--2">
+      <div class="form-field">
+        <label>Category</label>
+        <select id="editPlantCategory" class="admin-select admin-select--full">
+          <option>Tropical</option><option>Succulents</option><option>Trailing</option>
+          <option>Flowering</option><option>Trees</option><option>Ferns</option><option>Palms</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Difficulty</label>
+        <select id="editPlantDifficulty" class="admin-select admin-select--full">
+          <option>Easy</option><option>Moderate</option><option>Expert</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Description</label>
+      <textarea id="editPlantDesc" class="admin-input admin-input--full" rows="3"></textarea>
+    </div>
+    <button class="btn btn--primary btn--block" id="saveEditPlantBtn">Save Changes</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="/static/js/cart.js"></script>
+<script src="/static/js/admin.js"></script>
+</body>
+</html>

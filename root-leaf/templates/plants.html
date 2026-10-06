@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plants — Root & Leaf</title>
+  <meta name="description" content="Browse our curated collection of premium indoor plants." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/main.css" />
+  <link rel="stylesheet" href="/static/css/plants.css" />
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor" class="cursor"></div>
+<div id="cursor-follower" class="cursor-follower"></div>
+
+<!-- Navbar -->
+<nav class="nav" id="navbar">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <svg class="nav__logo-icon" viewBox="0 0 24 32" fill="none">
+        <path d="M12 30 C12 30 2 22 2 12 C2 4 7 1 12 1 C17 1 22 4 22 12 C22 22 12 30 12 30Z" fill="#4A7C59"/>
+        <path d="M12 30 L12 6" stroke="#101814" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <span class="nav__logo-text">ROOT &amp; LEAF</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/plants" class="nav__link nav__link--active">Plants</a></li>
+      <li><a href="/#care" class="nav__link">Care</a></li>
+      <li><a href="/#about" class="nav__link">About</a></li>
+    </ul>
+    <div class="nav__actions">
+      <button class="nav__search-btn" id="navSearchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="nav__cart-btn" id="cartToggle" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="nav__cart-count" id="cartCount">0</span>
+      </button>
+      <button class="nav__menu-btn" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu__close" id="menuClose">✕</button>
+  <ul class="mobile-menu__links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/plants">Plants</a></li>
+    <li><a href="/#care">Care</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/admin">Admin</a></li>
+  </ul>
+</div>
+
+<!-- Page Header -->
+<header class="page-header">
+  <div class="container">
+    <p class="section__label reveal">Our Collection</p>
+    <h1 class="page-header__title reveal">All Plants</h1>
+    <p class="page-header__sub reveal">
+      <span id="plantCount">–</span> plants, expertly curated for modern interiors.
+    </p>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     FILTERS BAR
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="filters-bar">
+  <div class="container">
+    <!-- Search -->
+    <div class="filters-bar__search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search plants…" class="filters-bar__search-input" />
+      <button class="filters-bar__search-clear" id="searchClear" aria-label="Clear search">✕</button>
+    </div>
+
+    <!-- Categories -->
+    <div class="filters-bar__categories" id="categoryFilters">
+      <button class="filter-chip filter-chip--active" data-cat="">All</button>
+      <button class="filter-chip" data-cat="Tropical">Tropical</button>
+      <button class="filter-chip" data-cat="Succulents">Succulents</button>
+      <button class="filter-chip" data-cat="Trailing">Trailing</button>
+      <button class="filter-chip" data-cat="Flowering">Flowering</button>
+      <button class="filter-chip" data-cat="Trees">Trees</button>
+      <button class="filter-chip" data-cat="Ferns">Ferns</button>
+      <button class="filter-chip" data-cat="Palms">Palms</button>
+    </div>
+
+    <!-- Sort + Price -->
+    <div class="filters-bar__controls">
+      <div class="filters-bar__select-wrap">
+        <select id="sortSelect" class="filters-bar__select">
+          <option value="id">Default</option>
+          <option value="price_asc">Price: Low → High</option>
+          <option value="price_desc">Price: High → Low</option>
+          <option value="name">Name A–Z</option>
+          <option value="newest">Newest</option>
+        </select>
+      </div>
+      <div class="filters-bar__price">
+        <label for="priceRange">Max £<span id="priceValue">200</span></label>
+        <input type="range" id="priceRange" min="10" max="200" value="200" step="5" class="filters-bar__range" />
+      </div>
+      <div class="filters-bar__view-toggle">
+        <button class="view-btn view-btn--active" id="gridView" title="Grid view">
+          <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="view-btn" id="listView" title="List view">
+          <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="4" width="18" height="2"/><rect x="3" y="11" width="18" height="2"/><rect x="3" y="18" width="18" height="2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PLANT GRID
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="plants-section">
+  <div class="container">
+    <div class="plants-grid" id="plantsGrid">
+      <!-- Skeleton loading state -->
+      <div class="plant-skeleton"></div>
+      <div class="plant-skeleton"></div>
+      <div class="plant-skeleton"></div>
+      <div class="plant-skeleton"></div>
+      <div class="plant-skeleton"></div>
+      <div class="plant-skeleton"></div>
+    </div>
+    <div class="plants-empty" id="plantsEmpty" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <h3>No plants found</h3>
+      <p>Try adjusting your search or filters.</p>
+      <button class="btn btn--outline btn--sm" id="resetFilters">Reset Filters</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PLANT MODAL
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="modal" id="plantModal" role="dialog" aria-modal="true" aria-labelledby="modalPlantName">
+  <button class="modal__close" id="modalClose" aria-label="Close modal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <div class="modal__inner">
+    <div class="modal__image-side">
+      <img id="modalImage" src="" alt="" class="modal__image" />
+      <div class="modal__image-badges">
+        <span class="modal__diff-badge" id="modalDiffBadge"></span>
+        <span class="modal__pet-badge" id="modalPetBadge"></span>
+      </div>
+    </div>
+    <div class="modal__content">
+      <p class="modal__category" id="modalCategory"></p>
+      <h2 class="modal__name" id="modalPlantName"></h2>
+      <p class="modal__scientific" id="modalScientific"></p>
+      <p class="modal__desc" id="modalDesc"></p>
+
+      <div class="modal__care-grid">
+        <div class="modal__care-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <div>
+            <span class="modal__care-label">Light</span>
+            <span class="modal__care-val" id="modalLight"></span>
+          </div>
+        </div>
+        <div class="modal__care-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+          <div>
+            <span class="modal__care-label">Water</span>
+            <span class="modal__care-val" id="modalWater"></span>
+          </div>
+        </div>
+        <div class="modal__care-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/></svg>
+          <div>
+            <span class="modal__care-label">Temperature</span>
+            <span class="modal__care-val" id="modalTemp"></span>
+          </div>
+        </div>
+        <div class="modal__care-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c0 0-8 7-8 13a8 8 0 0016 0c0-6-8-13-8-13z"/></svg>
+          <div>
+            <span class="modal__care-label">Humidity</span>
+            <span class="modal__care-val" id="modalHumidity"></span>
+          </div>
+        </div>
+        <div class="modal__care-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <div>
+            <span class="modal__care-label">Height</span>
+            <span class="modal__care-val" id="modalHeight"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal__purchase">
+        <div class="modal__price" id="modalPrice"></div>
+        <div class="modal__qty">
+          <button class="qty-btn" id="qtyDown" aria-label="Decrease quantity">−</button>
+          <span id="qtyValue" class="qty-value">1</span>
+          <button class="qty-btn" id="qtyUp" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="btn btn--primary btn--block" id="modalAddToCart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Add to Cart
+        </button>
+        <button class="btn btn--ghost btn--block" id="modalFavourite">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          Save to Favourites
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Sidebar -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart" id="cartSidebar">
+  <div class="cart__header">
+    <h3>Your Cart</h3>
+    <button class="cart__close" id="cartClose" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart__items" id="cartItems">
+    <div class="cart__empty" id="cartEmpty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <p>Your cart is empty</p>
+      <a href="/plants" class="btn btn--outline btn--sm">Browse Plants</a>
+    </div>
+  </div>
+  <div class="cart__footer" id="cartFooter" style="display:none">
+    <div class="cart__subtotal">
+      <span>Subtotal</span>
+      <span id="cartSubtotal">£0.00</span>
+    </div>
+    <a href="/checkout" class="btn btn--primary btn--block">Proceed to Checkout</a>
+    <p class="cart__note">Delivery calculated at checkout</p>
+  </div>
+</aside>
+
+<!-- Toast Container -->
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="/static/js/cart.js"></script>
+<script src="/static/js/plants.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

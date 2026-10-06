@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Root & Leaf — Bring Nature Home</title>
+  <meta name="description" content="Root & Leaf is a premium indoor plant boutique offering rare and beautiful houseplants delivered to your door." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/main.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     LOADING SCREEN
+═══════════════════════════════════════════════════════════════════════ -->
+<div id="loader" class="loader">
+  <div class="loader__inner">
+    <div class="loader__leaf">
+      <svg viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 75 C30 75 5 55 5 30 C5 10 20 2 30 2 C40 2 55 10 55 30 C55 55 30 75 30 75Z" fill="#4A7C59"/>
+        <path d="M30 75 L30 15" stroke="#101814" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M30 35 C30 35 18 28 15 20" stroke="#101814" stroke-width="1" stroke-linecap="round"/>
+        <path d="M30 50 C30 50 42 43 45 35" stroke="#101814" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="loader__wordmark">ROOT &amp; LEAF</div>
+    <div class="loader__bar"><div class="loader__progress"></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CUSTOM CURSOR
+═══════════════════════════════════════════════════════════════════════ -->
+<div id="cursor" class="cursor"></div>
+<div id="cursor-follower" class="cursor-follower"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════════════════════════════════ -->
+<nav class="nav" id="navbar">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <svg class="nav__logo-icon" viewBox="0 0 24 32" fill="none">
+        <path d="M12 30 C12 30 2 22 2 12 C2 4 7 1 12 1 C17 1 22 4 22 12 C22 22 12 30 12 30Z" fill="#4A7C59"/>
+        <path d="M12 30 L12 6" stroke="#101814" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <span class="nav__logo-text">ROOT &amp; LEAF</span>
+    </a>
+
+    <ul class="nav__links">
+      <li><a href="/" class="nav__link nav__link--active">Home</a></li>
+      <li><a href="/plants" class="nav__link">Plants</a></li>
+      <li><a href="#care" class="nav__link">Care</a></li>
+      <li><a href="#about" class="nav__link">About</a></li>
+    </ul>
+
+    <div class="nav__actions">
+      <button class="nav__search-btn" id="navSearchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="nav__cart-btn" id="cartToggle" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="nav__cart-count" id="cartCount">0</span>
+      </button>
+      <button class="nav__menu-btn" id="menuToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu__close" id="menuClose">✕</button>
+  <ul class="mobile-menu__links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/plants">Plants</a></li>
+    <li><a href="#care">Care</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="/admin">Admin</a></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <canvas id="particleCanvas" class="hero__canvas"></canvas>
+
+  <div class="hero__floating-leaves" aria-hidden="true">
+    <div class="fl fl--1">🌿</div>
+    <div class="fl fl--2">🍃</div>
+    <div class="fl fl--3">🌱</div>
+    <div class="fl fl--4">🍃</div>
+    <div class="fl fl--5">🌿</div>
+    <div class="fl fl--6">🌱</div>
+  </div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow reveal">Premium Indoor Botanicals</p>
+    <h1 class="hero__title reveal reveal--delay-1">
+      <span class="hero__title-line">BRING</span>
+      <span class="hero__title-line hero__title-line--accent">NATURE</span>
+      <span class="hero__title-line">HOME.</span>
+    </h1>
+    <p class="hero__subtitle reveal reveal--delay-2">
+      Curated rare &amp; everyday plants, delivered with care.<br/>
+      Every leaf tells a story.
+    </p>
+    <div class="hero__actions reveal reveal--delay-3">
+      <a href="/plants" class="btn btn--primary btn--lg">
+        <span>Shop Plants</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#featured" class="btn btn--ghost btn--lg">Explore</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll-indicator">
+    <div class="hero__scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+
+  <div class="hero__image-strip">
+    <div class="hero__image-strip-inner">
+      <img src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?w=400&q=70" alt="Monstera leaf" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?w=400&q=70" alt="Plant collection" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1446071103084-c257b5f70672?w=400&q=70" alt="Interior plants" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=400&q=70" alt="Cactus" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?w=400&q=70" alt="Tropical leaf" loading="lazy"/>
+      <!-- duplicated for seamless loop -->
+      <img src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?w=400&q=70" alt="" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?w=400&q=70" alt="" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1446071103084-c257b5f70672?w=400&q=70" alt="" loading="lazy"/>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MARQUEE
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="marquee">
+  <div class="marquee__inner">
+    <span>MONSTERA</span><span class="marquee__dot">✦</span>
+    <span>FIDDLE LEAF FIG</span><span class="marquee__dot">✦</span>
+    <span>BIRD OF PARADISE</span><span class="marquee__dot">✦</span>
+    <span>CALATHEA</span><span class="marquee__dot">✦</span>
+    <span>SNAKE PLANT</span><span class="marquee__dot">✦</span>
+    <span>ZZ PLANT</span><span class="marquee__dot">✦</span>
+    <span>POTHOS</span><span class="marquee__dot">✦</span>
+    <span>ARECA PALM</span><span class="marquee__dot">✦</span>
+    <!-- duplicate -->
+    <span>MONSTERA</span><span class="marquee__dot">✦</span>
+    <span>FIDDLE LEAF FIG</span><span class="marquee__dot">✦</span>
+    <span>BIRD OF PARADISE</span><span class="marquee__dot">✦</span>
+    <span>CALATHEA</span><span class="marquee__dot">✦</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     FEATURED PLANTS
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="section featured" id="featured">
+  <div class="container">
+    <div class="section__header reveal">
+      <p class="section__label">Curated Selection</p>
+      <h2 class="section__title">Featured Plants</h2>
+      <p class="section__desc">Each plant is hand-selected for its beauty, quality and character.</p>
+    </div>
+    <div class="featured__grid" id="featuredGrid">
+      <!-- populated by JS -->
+    </div>
+    <div class="featured__footer reveal">
+      <a href="/plants" class="btn btn--outline">View All Plants</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     WHY CHOOSE US
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="section why" id="about">
+  <div class="container">
+    <div class="why__layout">
+      <div class="why__image-side reveal">
+        <div class="why__image-stack">
+          <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&q=80" alt="Greenhouse interior" class="why__img why__img--main"/>
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=80" alt="Plant care" class="why__img why__img--accent"/>
+          <div class="why__badge">
+            <span class="why__badge-num">20+</span>
+            <span class="why__badge-label">Species Available</span>
+          </div>
+        </div>
+      </div>
+      <div class="why__content">
+        <p class="section__label reveal">Why Root & Leaf</p>
+        <h2 class="section__title reveal">Plants Chosen with Intent</h2>
+        <p class="why__intro reveal">We believe the right plant transforms a space. Every specimen in our collection is selected for its form, resilience, and the atmosphere it creates.</p>
+        <div class="why__pillars">
+          <div class="why__pillar reveal">
+            <div class="why__pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <h3>Expert Curation</h3>
+              <p>Every plant is vetted by our in-house botanists before it reaches our shelves.</p>
+            </div>
+          </div>
+          <div class="why__pillar reveal">
+            <div class="why__pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <div>
+              <h3>Plant Care Guides</h3>
+              <p>Detailed care instructions accompany every plant so they thrive in your home.</p>
+            </div>
+          </div>
+          <div class="why__pillar reveal">
+            <div class="why__pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div>
+              <h3>Careful Delivery</h3>
+              <p>Plants are packaged with specialist materials to arrive in perfect condition.</p>
+            </div>
+          </div>
+          <div class="why__pillar reveal">
+            <div class="why__pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <div>
+              <h3>Ongoing Support</h3>
+              <p>Our botanists are here to help if your plant has any questions — or you do.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     BEST SELLERS
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="section bestsellers" id="bestsellers">
+  <div class="container">
+    <div class="section__header reveal">
+      <p class="section__label">Community Favourites</p>
+      <h2 class="section__title">Best Sellers</h2>
+    </div>
+    <div class="bestsellers__grid" id="bestSellersGrid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CARE GUIDE BANNER
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="care-banner" id="care">
+  <div class="container">
+    <div class="care-banner__inner">
+      <div class="care-banner__content reveal">
+        <p class="section__label" style="color:#B7D49B">Plant Care</p>
+        <h2 class="section__title">Your Plants Will Thrive</h2>
+        <p>Every plant in our collection ships with a personalised care card, and our detailed online guides are always available. We're committed to helping every plant reach its full potential.</p>
+        <a href="/plants" class="btn btn--primary" style="margin-top:2rem">Browse Plants</a>
+      </div>
+      <div class="care-banner__icons reveal">
+        <div class="care-icon">
+          <div class="care-icon__circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </div>
+          <span>Light</span>
+        </div>
+        <div class="care-icon">
+          <div class="care-icon__circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+          </div>
+          <span>Water</span>
+        </div>
+        <div class="care-icon">
+          <div class="care-icon__circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M12 2l4 4-4 4M12 22l4-4-4-4"/></svg>
+          </div>
+          <span>Temperature</span>
+        </div>
+        <div class="care-icon">
+          <div class="care-icon__circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c0 0-8 7-8 13a8 8 0 0016 0c0-6-8-13-8-13z"/></svg>
+          </div>
+          <span>Humidity</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     TESTIMONIALS
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="section__header reveal">
+      <p class="section__label">What Our Customers Say</p>
+      <h2 class="section__title">Loved by Plant Enthusiasts</h2>
+    </div>
+    <div class="testimonials__grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-card__stars">★★★★★</div>
+        <p class="testimonial-card__text">"My Monstera arrived perfectly packaged and is already putting out new growth. The care guide was thorough and it's become the centrepiece of my living room."</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar" style="background:#4A7C59">S</div>
+          <div>
+            <strong>Sophia M.</strong>
+            <span>Interior Designer</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal--delay-1">
+        <div class="testimonial-card__stars">★★★★★</div>
+        <p class="testimonial-card__text">"I've ordered three times now. The Bird of Paradise is absolutely stunning. Root & Leaf is the only plant shop I trust for quality."</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar" style="background:#D6B46B">J</div>
+          <div>
+            <strong>James K.</strong>
+            <span>Architect</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal--delay-2">
+        <div class="testimonial-card__stars">★★★★★</div>
+        <p class="testimonial-card__text">"The Calathea I ordered is genuinely the most beautiful plant I've ever owned. The whole experience — from browsing to delivery — felt truly premium."</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar" style="background:#B7D49B; color:#101814">A</div>
+          <div>
+            <strong>Aisha T.</strong>
+            <span>Photographer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     GREENHOUSE CTA
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="greenhouse">
+  <div class="greenhouse__bg" style="background-image:url('https://images.unsplash.com/photo-1502657877623-f66bf489d236?w=1600&q=80')"></div>
+  <div class="greenhouse__overlay"></div>
+  <div class="greenhouse__content reveal">
+    <p class="section__label" style="color:#B7D49B">Visit Us</p>
+    <h2 class="greenhouse__title">Visit Our Greenhouse</h2>
+    <p class="greenhouse__desc">Step into our curated greenhouse where hundreds of specimens await. Every visit is an experience in itself.</p>
+    <div class="greenhouse__details">
+      <span>📍 12 Botanical Lane, London EC1</span>
+      <span>⏰ Mon–Sat 9am–6pm</span>
+    </div>
+    <a href="/plants" class="btn btn--primary btn--lg">Shop Online</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     NEWSLETTER
+═══════════════════════════════════════════════════════════════════════ -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter__inner reveal">
+      <div class="newsletter__copy">
+        <h2>Stay in the Loop</h2>
+        <p>Seasonal arrivals, care tips, and exclusive offers — directly to your inbox.</p>
+      </div>
+      <form class="newsletter__form" id="newsletterForm">
+        <input type="email" placeholder="your@email.com" required class="newsletter__input" />
+        <button type="submit" class="btn btn--primary">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="/" class="nav__logo">
+          <svg class="nav__logo-icon" viewBox="0 0 24 32" fill="none">
+            <path d="M12 30 C12 30 2 22 2 12 C2 4 7 1 12 1 C17 1 22 4 22 12 C22 22 12 30 12 30Z" fill="#4A7C59"/>
+            <path d="M12 30 L12 6" stroke="#101814" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <span class="nav__logo-text">ROOT &amp; LEAF</span>
+        </a>
+        <p class="footer__tagline">Bring Nature Home.</p>
+        <p class="footer__desc">Premium indoor plants curated for modern living. Every leaf, delivered with care.</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="/plants">All Plants</a></li>
+          <li><a href="/plants?category=Tropical">Tropical</a></li>
+          <li><a href="/plants?category=Succulents">Succulents</a></li>
+          <li><a href="/plants?category=Trailing">Trailing</a></li>
+          <li><a href="/plants?category=Trees">Trees</a></li>
+        </ul>
+      </div>
+      <div class="footer__nav">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Plant Care</a></li>
+          <li><a href="#">Delivery Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="/admin">Admin</a></li>
+        </ul>
+      </div>
+      <div class="footer__contact">
+        <h4>Get in Touch</h4>
+        <p>hello@rootandleaf.co</p>
+        <p>+44 20 7123 4567</p>
+        <p>Mon–Fri 9am–5pm GMT</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 Root & Leaf. All rights reserved.</span>
+      <span>Designed with care, built with love.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CART SIDEBAR
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart" id="cartSidebar">
+  <div class="cart__header">
+    <h3>Your Cart</h3>
+    <button class="cart__close" id="cartClose" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart__items" id="cartItems">
+    <div class="cart__empty" id="cartEmpty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <p>Your cart is empty</p>
+      <a href="/plants" class="btn btn--outline btn--sm">Browse Plants</a>
+    </div>
+  </div>
+  <div class="cart__footer" id="cartFooter" style="display:none">
+    <div class="cart__subtotal">
+      <span>Subtotal</span>
+      <span id="cartSubtotal">£0.00</span>
+    </div>
+    <a href="/checkout" class="btn btn--primary btn--block">Proceed to Checkout</a>
+    <p class="cart__note">Delivery calculated at checkout</p>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     TOAST
+═══════════════════════════════════════════════════════════════════════ -->
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="/static/js/cart.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
