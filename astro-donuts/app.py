@@ -6,6 +6,14 @@ import os
 app = Flask(__name__, static_folder='static', template_folder='templates')
 DB_PATH = os.path.join(os.path.dirname(__file__), 'data', 'donuts.db')
 
+# Vercel's filesystem is read-only except /tmp, so work on a copy of the DB there
+if os.environ.get('VERCEL'):
+    import shutil, tempfile
+    _tmp_db = os.path.join(tempfile.gettempdir(), 'donuts.db')
+    if not os.path.exists(_tmp_db):
+        shutil.copy(DB_PATH, _tmp_db)
+    DB_PATH = _tmp_db
+
 # ── DB helpers ──────────────────────────────────────────────────────────────
 def get_db():
     if 'db' not in g:

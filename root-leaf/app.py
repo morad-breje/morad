@@ -21,6 +21,14 @@ from flask_cors import CORS
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE  = os.path.join(BASE_DIR, "plants.db")
 
+# Vercel's filesystem is read-only except /tmp, so work on a copy of the DB there
+if os.environ.get("VERCEL"):
+    import shutil, tempfile
+    _tmp_db = os.path.join(tempfile.gettempdir(), "plants.db")
+    if not os.path.exists(_tmp_db):
+        shutil.copy(DATABASE, _tmp_db)
+    DATABASE = _tmp_db
+
 UPLOAD_DIR = os.path.join(BASE_DIR, "static", "images", "plants")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 ALLOWED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "gif"}
